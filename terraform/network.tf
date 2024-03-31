@@ -37,21 +37,21 @@ resource "aws_internet_gateway" "my-workspace-igw" {
   }
 }
 
-// パブリックルートテーブルの作成
+// プライベートルートテーブルの作成
 resource "aws_route_table" "my-workspace-rtb-private1-a" {
   vpc_id = aws_vpc.my-workspace-vpc.id
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.my-workspace-igw.id
-  }
   tags = {
     Name = "my-workspace-rtb-private1-a"
   }
 }
 
-// プライベートルートテーブルの作成
+// パブリックルートテーブルの作成
 resource "aws_route_table" "my-workspace-rtb-public1-a" {
   vpc_id = aws_vpc.my-workspace-vpc.id
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.my-workspace-igw.id
+  }
   tags = {
     Name = "my-workspace-rtb-public1-a"
   }
