@@ -47,3 +47,17 @@ resource "aws_ecs_task_definition" "my-app-frontend" {
   // NOTE: Nginxのイメージを使用するだけなので、タスク実行ロールのみ付与
   execution_role_arn = aws_iam_role.my-app-task-execution-role.arn
 }
+
+// サービスの作成
+resource "aws_ecs_service" "my-app-frontend-service" {
+  name = "my-app-frontend-service"
+  cluster = aws_ecs_cluster.my-app-cluster.arn
+  task_definition = aws_ecs_task_definition.my-app-frontend.arn
+  launch_type = "FARGATE"
+  scheduling_strategy = "REPLICA"
+  platform_version = "LATEST"
+  desired_count = 1
+  deployment_controller {
+    type = "CODE_DEPLOY"
+  }
+}
