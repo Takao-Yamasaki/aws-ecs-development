@@ -1,0 +1,28 @@
+version: 0.2
+
+env:
+  variables:
+    TFDIR: "environments"
+    TFCONF: "codebuild/tfnotify.yml"
+    TITLE: "Terraform Plan"
+    MSG: "Plan detail via tfnotify"
+
+phases:
+  install:
+    commands:
+      # terraform
+      - curl -sL https://releases.hashicorp.com/terraform/1.5.0/terraform_1.5.0_linux_amd64.zip > terraform.zip
+      - unzip terraform.zip
+      - cp terraform /usr/local/bin
+      # tfnotify
+      - curl -sL https://github.com/mercari/tfnotify/releases/download/v0.8.0/tfnotify_linux_amd64.tar.gz > tfnotify.tar.gz
+      - tar -zxvf tfnotify.tar.gz
+      - cp tfnotify /usr/local/bin
+  prebuild:
+    commands:
+      - terraform -chdir="${TFDIR}" init -no-color
+  build:
+    commands:
+      - |
+        PALN=$(terraform -chdir="${TFDIR}" plan -no-color 2>&1)
+        echo "${PLAN}" | tfnotify --config "${TFCONFIG}" plan --title "${TITLE}" --message "${MSG}"
