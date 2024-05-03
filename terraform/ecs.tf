@@ -11,28 +11,28 @@ resource "aws_ecs_cluster" "my-app-cluster" {
 // https://gallery.ecr.aws/nginx/nginx
 // https://docs.aws.amazon.com/ja_jp/AmazonECS/latest/developerguide/task_definition_parameters.html
 resource "aws_ecs_task_definition" "my-app-frontend" {
-  family = "my-app-frontend"
-  requires_compatibilities = [ "FARGATE" ]
-  
+  family                   = "my-app-frontend"
+  requires_compatibilities = ["FARGATE"]
+
   network_mode = "awsvpc"
-  cpu = 256
-  memory = 512
+  cpu          = 256
+  memory       = 512
   container_definitions = jsonencode([
     {
-      name ="frontend"
-      image = "public.ecr.aws/nginx/nginx:stable-perl"
+      name      = "frontend"
+      image     = "public.ecr.aws/nginx/nginx:stable-perl"
       essential = true
       portMappings = [
         {
           containerPort = 80
-          hostPort = 80
+          hostPort      = 80
         }
       ]
       logConfigration = {
         logDriver = "awslogs"
         options = {
-          region = "ap-northeast-1"
-          log_group_name = "ecs/my-app-frontend"
+          region            = "ap-northeast-1"
+          log_group_name    = "ecs/my-app-frontend"
           log_stream_prefix = "ecs"
         }
       }
@@ -41,7 +41,7 @@ resource "aws_ecs_task_definition" "my-app-frontend" {
   // OSとアーキテクチャの指定
   runtime_platform {
     operating_system_family = "LINUX"
-    cpu_architecture = "X86_64"
+    cpu_architecture        = "X86_64"
   }
 
   // NOTE: Nginxのイメージを使用するだけなので、タスク実行ロールのみ付与
@@ -50,13 +50,13 @@ resource "aws_ecs_task_definition" "my-app-frontend" {
 
 // サービスの作成
 resource "aws_ecs_service" "my-app-frontend-service" {
-  name = "my-app-frontend-service"
-  cluster = aws_ecs_cluster.my-app-cluster.arn
-  task_definition = aws_ecs_task_definition.my-app-frontend.arn
-  launch_type = "FARGATE"
+  name                = "my-app-frontend-service"
+  cluster             = aws_ecs_cluster.my-app-cluster.arn
+  task_definition     = aws_ecs_task_definition.my-app-frontend.arn
+  launch_type         = "FARGATE"
   scheduling_strategy = "REPLICA"
-  platform_version = "LATEST"
-  desired_count = 1
+  platform_version    = "LATEST"
+  desired_count       = 1
   deployment_controller {
     type = "CODE_DEPLOY"
   }

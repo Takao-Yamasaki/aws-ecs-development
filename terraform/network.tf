@@ -1,8 +1,8 @@
 // VPCの作成
 resource "aws_vpc" "my-workspace-vpc" {
-  cidr_block = var.aws_vpc_cider
+  cidr_block           = var.aws_vpc_cider
   enable_dns_hostnames = true
-  enable_dns_support = true
+  enable_dns_support   = true
   tags = {
     Name = "my-workspace-vpc"
   }
@@ -10,8 +10,8 @@ resource "aws_vpc" "my-workspace-vpc" {
 
 // プライベートサブネットの作成
 resource "aws_subnet" "my-workspace-subnet-app-private1-a" {
-  vpc_id = aws_vpc.my-workspace-vpc.id
-  cidr_block = var.aws_private_subnet_cider
+  vpc_id            = aws_vpc.my-workspace-vpc.id
+  cidr_block        = var.aws_private_subnet_cider
   availability_zone = "ap-northeast-1a"
   tags = {
     Name = "my-workspace-subnet-app-private1-a"
@@ -20,8 +20,8 @@ resource "aws_subnet" "my-workspace-subnet-app-private1-a" {
 
 // パブリックサブネットの作成
 resource "aws_subnet" "my-workspace-subnet-app-public1-a" {
-  vpc_id = aws_vpc.my-workspace-vpc.id
-  cidr_block = var.aws_public1a_subnet_cider
+  vpc_id            = aws_vpc.my-workspace-vpc.id
+  cidr_block        = var.aws_public1a_subnet_cider
   availability_zone = "ap-northeast-1a"
   tags = {
     Name = "my-workspace-subnet-app-public1-a"
@@ -31,8 +31,8 @@ resource "aws_subnet" "my-workspace-subnet-app-public1-a" {
 
 // パブリックサブネットの作成
 resource "aws_subnet" "my-workspace-subnet-app-public1-b" {
-  vpc_id = aws_vpc.my-workspace-vpc.id
-  cidr_block = var.aws_public1b_subnet_cider
+  vpc_id            = aws_vpc.my-workspace-vpc.id
+  cidr_block        = var.aws_public1b_subnet_cider
   availability_zone = "ap-northeast-1b"
   tags = {
     Name = "my-workspace-subnet-app-public1-b"
@@ -70,12 +70,12 @@ resource "aws_route_table" "my-workspace-rtb-public1-a" {
 
 // プライベートサブネットにルートテーブルを紐付け
 resource "aws_route_table_association" "my-workspace-rt-assoc-private1-a" {
-  subnet_id = aws_subnet.my-workspace-subnet-app-private1-a.id
+  subnet_id      = aws_subnet.my-workspace-subnet-app-private1-a.id
   route_table_id = aws_route_table.my-workspace-rtb-private1-a.id
 }
 
 // パブリックサブネットにルートテーブルを紐付け
 resource "aws_route_table_association" "my-workspace-rt-assoc-public1-a" {
-  subnet_id = aws_subnet.my-workspace-subnet-app-public1-a.id
+  subnet_id      = aws_subnet.my-workspace-subnet-app-public1-a.id
   route_table_id = aws_route_table.my-workspace-rtb-public1-a.id
 }
