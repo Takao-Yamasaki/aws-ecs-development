@@ -27,5 +27,5 @@ phases:
       - echo "TFNCONF:${TFNCONF}"
       - echo "TITLE:${TITLE}"
       - echo "MSG:${MSG}"
-      - PLAN=$(terraform -chdir="environments" plan -no-color 2>&1)
+      - PLAN=$(terraform -chdir="environments" plan -no-color)
       - echo "${PLAN}" | tfnotify --config "${TFNCONF}" plan --title "${TITLE}" --message "${MSG}"
