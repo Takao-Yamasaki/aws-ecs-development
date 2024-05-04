@@ -4,7 +4,7 @@ notifier:
     token: $GITHUB_TOKEN
     repository:
       owner: "Takao-Yamasaki"
-      repository: "aws-ecs-development"
+      name: "aws-ecs-development"
 terraform:
   plan:
     template: |
