@@ -27,5 +27,5 @@ phases:
       - echo "TFNCONF:${TFNCONF}"
       - echo "TITLE:${TITLE}"
       - echo "MSG:${MSG}"
-      - APPLY=$(terraform -chdir="${TFDIR}" apply -no-color 2>&1)
-      - echo "${APPLY}" | tfnotify --config "${TFNCONF}" plan --title "${TITLE}" --message "${MSG}"
+      - APPLY=$(terraform -chdir="${TFDIR}" apply -auto-approve -no-color 2>&1)
+      - echo "${APPLY}" | tfnotify --config "${TFNCONF}" apply --title "${TITLE}" --message "${MSG}"
