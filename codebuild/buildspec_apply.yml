@@ -3,7 +3,7 @@ version: 0.2
 env:
   variables:
     TFDIR: "environments"
-    TFCONF: "codebuild/tfnotify.yml"
+    TFNCONF: "codebuild/tfnotify.yml"
     TITLE: "Terraform Apply"
     MSG: "Apply detail via tfnotify"
 
@@ -25,4 +25,4 @@ phases:
     commands:
       - |
         PLAN=$(terraform -chdir="${TFDIR}" plan -no-color 2>&1)
-        echo "${PLAN}" | tfnotify --config "${TFCONFIG}" plan --title "${TITLE}" --message "${MSG}"
+        echo "${PLAN}" | tfnotify --config "${TFNCONF}" plan --title "${TITLE}" --message "${MSG}"
