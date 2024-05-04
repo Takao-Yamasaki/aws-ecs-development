@@ -2,8 +2,9 @@ ci: codebuild
 notifier:
   github:
     token: $GITHUB_TOKEN
-    owner: "Takao-Yamasaki"
-    repository: "aws-ecs-development"
+    repository:
+      owner: "Takao-Yamasaki"
+      repository: "aws-ecs-development"
 terraform:
   plan:
     template: |
@@ -13,10 +14,10 @@ terraform:
       <pre><code>{{ .Result }}
       </pre></code>
       {{end}}
-      <details><summary>Datails (Click me)</summary>
+      <details><summary>Details (Click me)</summary>
 
       <pre><code>{{ .Body }}
-      </pre></code></datails>
+      </pre></code></details>
   apply:
     template: |
       {{ .Title }} <sup>[CI link]( {{ .Link }} )</sup>
@@ -25,7 +26,7 @@ terraform:
       <pre><code>{{ .Result }}
       </pre></code>
       {{end}}
-      <details><summary>Datails (Click me)</summary>
+      <details><summary>Details (Click me)</summary>
 
       <pre><code>{{ .Body }}
-      </pre></code></datails>
+      </pre></code></details>

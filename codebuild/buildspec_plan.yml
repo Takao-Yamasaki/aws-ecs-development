@@ -20,12 +20,12 @@ phases:
       - cp tfnotify /usr/local/bin
   pre_build:
     commands:
-      - terraform -chdir="environments" init -no-color
+      - terraform -chdir="${TFDIR}" init -no-color
   build:
     commands:
       - echo "TFDIR:${TFDIR}"
       - echo "TFNCONF:${TFNCONF}"
       - echo "TITLE:${TITLE}"
       - echo "MSG:${MSG}"
-      - PLAN=$(terraform -chdir="environments" plan -no-color 2>&1)
+      - PLAN=$(terraform -chdir="${TFDIR}" plan -no-color 2>&1)
       - echo "${PLAN}" | tfnotify --config "${TFNCONF}" plan --title "${TITLE}" --message "${MSG}"
