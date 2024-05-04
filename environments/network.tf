@@ -30,12 +30,12 @@ resource "aws_subnet" "my-workspace-subnet-app-public1-a" {
 }
 
 // パブリックサブネットの作成
-resource "aws_subnet" "my-workspace-subnet-app-public1-b" {
+resource "aws_subnet" "my-workspace-subnet-app-public1-c" {
   vpc_id            = aws_vpc.my-workspace-vpc.id
   cidr_block        = var.aws_public1b_subnet_cider
-  availability_zone = "ap-northeast-1b"
+  availability_zone = "ap-northeast-1c"
   tags = {
-    Name = "my-workspace-subnet-app-public1-b"
+    Name = "my-workspace-subnet-app-public1-c"
   }
   map_public_ip_on_launch = true
 }

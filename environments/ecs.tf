@@ -69,7 +69,7 @@ resource "aws_ecs_service" "my-app-frontend-service" {
     ]
     subnets = [ 
       aws_subnet.my-workspace-subnet-app-public1-a.id,
-      aws_subnet.my-workspace-subnet-app-public1-b.id
+      aws_subnet.my-workspace-subnet-app-public1-c.id
     ]
   }
   load_balancer {
