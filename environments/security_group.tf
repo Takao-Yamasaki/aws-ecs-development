@@ -49,8 +49,7 @@ resource "aws_vpc_security_group_ingress_rule" "my-app-lb-sg-ingress" {
 // インバウンドルール(開発者向け)
 resource "aws_vpc_security_group_ingress_rule" "my-app-lb-sg-ingress-dev" {
   security_group_id = aws_security_group.my-app-frontend-sg.id
-  // 完全一致したIPのみに制限
-  cidr_ipv4   = var.my_ip_address
+  cidr_ipv4   = "0.0.0.0/0"
   from_port   = 9000
   ip_protocol = "tcp"
   to_port     = 9000

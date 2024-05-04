@@ -1,0 +1,5 @@
+aws_vpc_cider             = "10.0.0.0/20"
+aws_private_subnet_cider  = "10.0.0.0/24"
+aws_public1a_subnet_cider = "10.0.1.0/24"
+aws_public1b_subnet_cider = "10.0.2.0/24"
+aws_region                = "ap-northeast-1"

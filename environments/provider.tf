@@ -1,5 +1,4 @@
 // 環境情報を定義
-variable "my_ip_address" {}
 variable "aws_vpc_cider" {}
 variable "aws_private_subnet_cider" {}
 variable "aws_public1a_subnet_cider" {}
