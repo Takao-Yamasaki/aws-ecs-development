@@ -55,7 +55,7 @@ resource "aws_ecs_service" "my-app-frontend-service" {
   task_definition     = aws_ecs_task_definition.my-app-frontend.arn
   launch_type         = "FARGATE"
   scheduling_strategy = "REPLICA"
-  platform_version    = "LATEST"
+  platform_version    = "1.4.0"
   desired_count       = 1
   deployment_controller {
     type = "CODE_DEPLOY"
