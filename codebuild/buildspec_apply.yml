@@ -20,9 +20,11 @@ phases:
       - cp tfnotify /usr/local/bin
   pre_build:
     commands:
+      - echo "terraform init"
       - terraform -chdir="${TFDIR}" init -input=false -no-color
   build:
     commands:
+      - echo "terraform apply"
       - echo "TFDIR:${TFDIR}"
       - echo "TFNCONF:${TFNCONF}"
       - echo "TITLE:${TITLE}"
