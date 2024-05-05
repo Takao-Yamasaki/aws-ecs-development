@@ -23,7 +23,7 @@ resource "aws_security_group" "my-app-frontend-sg" {
 
 // ALB用のセキュリティグループの作成
 resource "aws_security_group" "my-app-lb-sg" {
-  name = "my-app-lb-sg"
+  name        = "my-app-lb-sg"
   vpc_id      = aws_vpc.my-workspace-vpc.id
   description = "Security Group for load balancer"
   // インバウンドルール（ユーザー向け）
