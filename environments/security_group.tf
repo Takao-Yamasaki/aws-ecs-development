@@ -40,8 +40,8 @@ resource "aws_security_group" "my-app-lb-sg" {
 // インバウンドルール(開発者向け)
 resource "aws_vpc_security_group_ingress_rule" "my-app-lb-sg-ingress-dev" {
   security_group_id = aws_security_group.my-app-frontend-sg.id
-  cidr_ipv4   = "0.0.0.0/0"
-  from_port   = 9000
-  ip_protocol = "tcp"
-  to_port     = 9000
+  cidr_ipv4         = "0.0.0.0/0"
+  from_port         = 9000
+  ip_protocol       = "tcp"
+  to_port           = 9000
 }
