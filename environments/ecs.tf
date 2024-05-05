@@ -60,21 +60,21 @@ resource "aws_ecs_service" "my-app-frontend-service" {
   deployment_controller {
     type = "CODE_DEPLOY"
   }
-  
+
   network_configuration {
     # パブリックIPの自動割り当てを有効化
     assign_public_ip = true
     security_groups = [
       aws_security_group.my-app-frontend-sg.id
     ]
-    subnets = [ 
+    subnets = [
       aws_subnet.my-workspace-subnet-app-public1-a.id,
       aws_subnet.my-workspace-subnet-app-public1-c.id
     ]
   }
   load_balancer {
     target_group_arn = aws_lb_target_group.my-app-frontend-tg-1.arn
-    container_name = "frontend"
-    container_port = 80
+    container_name   = "frontend"
+    container_port   = 80
   }
 }
