@@ -36,7 +36,8 @@ data "aws_iam_policy_document" "my-app-ecs-codedeploy-assume-policy" {
   }
 }
 
+# IAMポリシー(AWSCodeDeployRoleForECS)をアタッチ
 resource "aws_iam_role_policy_attachment" "my-app-ecs-codedeploy-assume-policy" {
-  role       = aws_iam_role.my-app-ecs-codedeploy-role.arn
+  role       = aws_iam_role.my-app-ecs-codedeploy-role.name
   policy_arn = "arn:aws:iam::aws:policy/AWSCodeDeployRoleForECS"
 }

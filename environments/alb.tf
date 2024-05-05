@@ -5,7 +5,10 @@ resource "aws_lb" "my-app-alb" {
   internal           = false
   ip_address_type    = "ipv4"
   security_groups = [ aws_security_group.my-app-lb-sg.id ]
-  subnets = [ aws_subnet.my-workspace-subnet-app-public1-a.id, aws_subnet.my-workspace-subnet-app-public1-b.id ]
+  subnets = [ 
+    aws_subnet.my-workspace-subnet-app-public1-a.id, 
+    aws_subnet.my-workspace-subnet-app-public1-c.id
+  ]
 
   tags = {
     "Name" : "my-app-alb"

@@ -14,7 +14,7 @@ resource "aws_security_group" "my-app-frontend-sg" {
   }
 }
 
-// インバウンドルール
+// インバウンドルール(ユーザー向け)
 resource "aws_vpc_security_group_ingress_rule" "my-app-frontend-sg-ingress" {
   security_group_id = aws_security_group.my-app-frontend-sg.id
   cidr_ipv4         = "0.0.0.0/0"
@@ -35,15 +35,6 @@ resource "aws_security_group" "my-app-lb-sg" {
     description = "allow all outbound traffic by default"
     cidr_blocks = ["0.0.0.0/0"]
   }
-}
-
-// インバウンドルール(ユーザー向け)
-resource "aws_vpc_security_group_ingress_rule" "my-app-lb-sg-ingress" {
-  security_group_id = aws_security_group.my-app-frontend-sg.id
-  cidr_ipv4         = "0.0.0.0/0"
-  from_port         = 80
-  ip_protocol       = "tcp"
-  to_port           = 80
 }
 
 // インバウンドルール(開発者向け)
