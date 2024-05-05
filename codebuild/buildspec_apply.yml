@@ -30,5 +30,5 @@ phases:
       - echo "TITLE:${TITLE}"
       - echo "MSG:${MSG}"
       - |
-        APPLY=$(terraform -chdir="${TFDIR}" apply -input=false -no-color 2>&1)
+        APPLY=$(terraform -chdir="${TFDIR}" apply -input=false -auto-approve -no-color 2>&1)
         echo "${APPLY}" | tfnotify --config "${TFNCONF}" apply --title "${TITLE}" --message "${MSG}"
