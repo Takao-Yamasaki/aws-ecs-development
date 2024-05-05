@@ -5,9 +5,9 @@ resource "aws_security_group" "my-app-frontend-sg" {
   description = "My App Frontend Security Group"
   // インバウンドルール
   ingress {
-    from_port = 80
-    to_port = 80
-    protocol = "tcp"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
     cidr_blocks = "0.0.0.0/0"
   }
 
@@ -27,9 +27,9 @@ resource "aws_security_group" "my-app-lb-sg" {
   description = "Security Group for load balancer"
   // インバウンドルール（ユーザー向け）
   ingress {
-    from_port = 80
-    to_port = 80
-    protocol = "tcp"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
     cidr_blocks = "0.0.0.0/0"
     description = "for User"
   }
@@ -37,8 +37,8 @@ resource "aws_security_group" "my-app-lb-sg" {
   // インバウンドルール(開発者向け)
   ingress {
     from_port = 9000
-    to_port = 9000
-    protocol = "tcp"
+    to_port   = 9000
+    protocol  = "tcp"
     // NOTE: 本来ならIP制限していい
     cidr_blocks = "0.0.0.0/0"
     description = "for Developer"
