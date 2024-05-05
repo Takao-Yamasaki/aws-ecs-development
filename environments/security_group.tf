@@ -8,7 +8,7 @@ resource "aws_security_group" "my-app-frontend-sg" {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = "0.0.0.0/0"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   // アウトバウンドルール
@@ -31,7 +31,7 @@ resource "aws_security_group" "my-app-lb-sg" {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = "0.0.0.0/0"
+    cidr_blocks = ["0.0.0.0/0"]
     description = "for User"
   }
 
@@ -40,8 +40,8 @@ resource "aws_security_group" "my-app-lb-sg" {
     from_port = 9000
     to_port   = 9000
     protocol  = "tcp"
-    // NOTE: 本来ならIP制限していい
-    cidr_blocks = "0.0.0.0/0"
+    // NOTE: 開発用なので、IP制限していい
+    cidr_blocks = ["0.0.0.0/0"]
     description = "for Developer"
   }
 
