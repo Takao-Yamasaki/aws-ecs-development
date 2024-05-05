@@ -1,4 +1,8 @@
 build:
-	docker build --platform linux/x86_64 -t my-app-frontend
+	docker build . -t my-app-frontend
+nocache:
+	docker build . -t my-app-frontend --no-cache
 run:
-	docker contaner run -p 8080:80
+	docker container run -p 8080:80 my-app-frontend:latest
+buildpd:
+	docker build --platform linux/x86_64 -t my-app-frontend
