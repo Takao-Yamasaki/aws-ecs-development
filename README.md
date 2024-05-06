@@ -14,6 +14,6 @@ terraform destroy
 
 - Terraform
 - CodeBuild
-- tfnortify(terraform plan/applyの結果をGitHubへの通知)
+- tfnotify(terraform plan/applyの結果をGitHubへの通知)
 - GitHub Actions
 - CodeRabbit(AIコードレビュー)
