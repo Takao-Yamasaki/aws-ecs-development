@@ -10,3 +10,10 @@ TerraformでECS環境(`Blue/Green Deploy`)を構築するサンプルです
 ~~~
 terraform destroy
 ~~~
+
+### 使用技術
+- Terraform
+- CodeBuild
+- tfnortify(terraform plan/applyの結果をGitHubへの通知)
+- GitHub Actions
+- CodeRabbit(AIコードレビュー)
