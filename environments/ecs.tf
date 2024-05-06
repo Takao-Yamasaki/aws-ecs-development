@@ -77,4 +77,8 @@ resource "aws_ecs_service" "my-app-frontend-service" {
     container_name   = "frontend"
     container_port   = 80
   }
+  # NOTE: applyによってタスク定義とロードバランサーの設定が上書きされないようにする
+  lifecycle {
+    ignore_changes = [ task_definition, load_balancer ]
+  }
 }
