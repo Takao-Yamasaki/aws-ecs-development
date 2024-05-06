@@ -20,7 +20,7 @@ resource "aws_ecs_task_definition" "my-app-frontend" {
   container_definitions = jsonencode([
     {
       name      = "frontend"
-      image     = "public.ecr.aws/nginx/nginx:stable-perl"
+      image     = "786832920677.dkr.ecr.ap-northeast-1.amazonaws.com/my-app-frontend"
       essential = true
       portMappings = [
         {
