@@ -40,8 +40,8 @@ resource "aws_security_group" "my-app-lb-sg" {
     from_port = 9000
     to_port   = 9000
     protocol  = "tcp"
-    // NOTE: 開発用なので、IP制限していい
-    cidr_blocks = ["0.0.0.0/0"]
+    // NOTE: 開発用のIP制限
+    cidr_blocks = ["49.109.0.0/16"]
     description = "for Developer"
   }
 
