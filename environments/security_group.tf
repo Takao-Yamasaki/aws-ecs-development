@@ -54,3 +54,26 @@ resource "aws_security_group" "my-app-lb-sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
+# セキュリティグループの作成 my-app-api-sg
+resource "aws_security_group" "my-app-api-sg" {
+  name        = "my-app-api-sg"
+  vpc_id      = aws_vpc.my-workspace-vpc.id
+  description = "For my app api service"
+  # インバウンドルール
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  # アウトバウンドルール
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    description = "allow all outbound traffic by default"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
