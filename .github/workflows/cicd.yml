@@ -1,0 +1,14 @@
+name: Hello GitHun Actions
+on: push 
+
+jobs:
+  # ジョブ同士は互いに干渉せず並列に稼働する
+  hello-job:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Hello"
+      - run: echo "GitHub Actions!!"
+  goodbye-job:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "GoodBye, GitHub Actions."
