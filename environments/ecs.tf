@@ -48,35 +48,104 @@ resource "aws_ecs_task_definition" "my-app-frontend" {
   execution_role_arn = aws_iam_role.my-app-task-execution-role.arn
 }
 
-# サービスの作成
-resource "aws_ecs_service" "my-app-frontend-service" {
-  name                = "my-app-frontend-service"
+# タスク定義の作成 my-app-api
+resource "aws_ecs_task_definition" "my-app-api" {
+  family                   = "my-app-api"
+  requires_compatibilities = ["FARGATE"]
+
+  network_mode = "awsvpc"
+  cpu          = 512
+  memory       = 1024
+  container_definitions = jsonencode([
+    {
+      name      = "dummy"
+      image     = "public.ecr.aws/nginx/nginx:stable-perl"
+      essential = true
+      portMappings = [
+        {
+          containerPort = 80
+          hostPort      = 80
+        }
+      ]
+      logConfigration = {
+        logDriver = "awslogs"
+        options = {
+          region            = "ap-northeast-1"
+          log_group_name    = "ecs/my-app-api"
+          log_stream_prefix = "ecs"
+        }
+      }
+    }
+  ])
+  # OSとアーキテクチャの指定
+  runtime_platform {
+    operating_system_family = "LINUX"
+    cpu_architecture        = "X86_64"
+  }
+
+  # NOTE: Nginxのイメージを使用するだけなので、タスク実行ロールのみ付与
+  execution_role_arn = aws_iam_role.my-app-task-execution-role.arn
+}
+
+# サービスの作成 my-app-frontend-service
+# NOTE: Blue/Greenデプロイ
+# resource "aws_ecs_service" "my-app-frontend-service" {
+#   name                = "my-app-frontend-service"
+#   cluster             = aws_ecs_cluster.my-app-cluster.arn
+#   task_definition     = aws_ecs_task_definition.my-app-frontend.arn
+#   launch_type         = "FARGATE"
+#   scheduling_strategy = "REPLICA"
+#   platform_version    = "1.4.0"
+#   desired_count       = 1
+#   deployment_controller {
+#     type = "CODE_DEPLOY"
+#   }
+
+#   network_configuration {
+#     # パブリックIPの自動割り当てを有効化
+#     assign_public_ip = true
+#     security_groups = [
+#       aws_security_group.my-app-frontend-sg.id
+#     ]
+#     subnets = [
+#       aws_subnet.my-workspace-subnet-app-public1-a.id,
+#       aws_subnet.my-workspace-subnet-app-public1-c.id
+#     ]
+#   }
+#   load_balancer {
+#     target_group_arn = aws_lb_target_group.my-app-frontend-tg-1.arn
+#     container_name   = "frontend"
+#     container_port   = 80
+#   }
+#   # NOTE: applyによってタスク定義とロードバランサーの設定が上書きされないようにする
+#   lifecycle {
+#     ignore_changes = [task_definition, load_balancer]
+#   }
+# }
+
+# サービスの作成 my-app-api-service
+# NOTE: ローリングアップデート
+resource "aws_ecs_service" "my-app-api-service" {
+  name                = "my-app-api-service"
   cluster             = aws_ecs_cluster.my-app-cluster.arn
-  task_definition     = aws_ecs_task_definition.my-app-frontend.arn
+  task_definition     = aws_ecs_task_definition.my-app-api.arn
   launch_type         = "FARGATE"
   scheduling_strategy = "REPLICA"
   platform_version    = "1.4.0"
   desired_count       = 1
-  deployment_controller {
-    type = "CODE_DEPLOY"
-  }
 
   network_configuration {
     # パブリックIPの自動割り当てを有効化
     assign_public_ip = true
     security_groups = [
-      aws_security_group.my-app-frontend-sg.id
+      aws_security_group.my-app-api-sg.id
     ]
     subnets = [
       aws_subnet.my-workspace-subnet-app-public1-a.id,
       aws_subnet.my-workspace-subnet-app-public1-c.id
     ]
   }
-  load_balancer {
-    target_group_arn = aws_lb_target_group.my-app-frontend-tg-1.arn
-    container_name   = "frontend"
-    container_port   = 80
-  }
+
   # NOTE: applyによってタスク定義とロードバランサーの設定が上書きされないようにする
   lifecycle {
     ignore_changes = [task_definition, load_balancer]
