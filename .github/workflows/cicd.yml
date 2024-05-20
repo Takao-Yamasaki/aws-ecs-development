@@ -2,6 +2,7 @@ name: Web API Deploy Pipeline
 on: 
   push:
     paths:
+      - ".github/workflows/**"
       - "cicd-section/api/**"
 
 env:
@@ -47,15 +48,3 @@ jobs:
           docker image tag temp_api_image:latest $ECR_REGISTRY/$ECR_REPOSITORY:${{ github.sha }}
           docker image push $ECR_REGISTRY/$ECR_REPOSITORY:${{ github.sha }}
   # Deploy
-  
-
-  # ジョブ同士は互いに干渉せず並列に稼働する
-  hello-job:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "Hello"
-      - run: echo "GitHub Actions!!"
-  goodbye-job:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "GoodBye, GitHub Actions."
