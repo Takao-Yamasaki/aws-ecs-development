@@ -86,7 +86,7 @@ data "aws_iam_policy_document" "my-app-ecs-github-actions-assume-policy" {
     
     # OIDCを利用できる対象のGitHub Repositoryを制限
     condition {
-      test = "StringEquals"
+      test = "StringLike"
       variable = "token.actions.githubusercontent.com:sub"
       values = local.full_paths
     }
