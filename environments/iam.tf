@@ -1,5 +1,6 @@
 // タスク実行ロールの作成
 resource "aws_iam_role" "my-app-task-execution-role" {
+  # TODO: nameをecsTaskExecutionRoleに変更すること
   name               = "my-app-task-execution-role"
   assume_role_policy = data.aws_iam_policy_document.my-app-task-execution-assume-policy.json
 }
@@ -119,6 +120,11 @@ data "aws_iam_policy_document" "my-app-ecs-ecr-push-pull-image-policy" {
       "ecs:DescribeServices",
     ]
     resources = [ "*" ]
+  }
+  statement {
+    effect = "Allow"
+    actions = [ "iam:PassRole" ]
+    resources = [ "arn:aws:iam::${data.aws_caller_identity.self.account_id}:role/my-app-task-execution-role" ]
   }
 }
 
