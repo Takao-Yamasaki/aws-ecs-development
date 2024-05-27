@@ -10,6 +10,7 @@ resource "aws_security_group" "my-app-frontend-sg" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+  // TODO: あとから削除する
   ingress {
     from_port = 8080
     to_port = 8080
@@ -68,9 +69,9 @@ resource "aws_security_group" "my-app-api-sg" {
   description = "For my app api service"
   # インバウンドルール
   ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
+    from_port = 8080
+    to_port = 8080
+    protocol = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
