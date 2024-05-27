@@ -121,6 +121,11 @@ data "aws_iam_policy_document" "my-app-ecs-ecr-push-pull-image-policy" {
     ]
     resources = [ "*" ]
   }
+  statement {
+    effect = "Allow"
+    actions = [ "iam:PassRole" ]
+    resources = [ "arn:aws:iam::${data.aws_caller_identity.self.account_id}:role/my-app-task-execution-role" ]
+  }
 }
 
 # カスタムIAMポリシーの作成
