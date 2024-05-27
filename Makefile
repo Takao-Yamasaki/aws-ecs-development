@@ -10,3 +10,7 @@ apply:
 	terraform -chdir="environments" apply
 destroy:
 	terraform -chdir="environments" destroy
+inframap:
+	inframap generate ./environments/ | dot -Tpng > inframap_generate.png
+graph:
+	terraform -chdir="environments" graph -type=plan | dot -Tpng >graph.png
