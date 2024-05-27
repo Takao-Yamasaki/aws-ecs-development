@@ -18,8 +18,7 @@ ECSで以下の技術を試したサンプルです。Spring BootのAPIが`Hello
 - ECS AutoScaling
 ## GitHub Actionsを使った標準デプロイ
 ### 構成図
-<li>infraMapを使って出力しました</li>
-<image alt=inframap src=inframap_generate.png>
+<image alt=inframap src=github_actions_infra.png>
 
 ## 環境
 - Terraform
